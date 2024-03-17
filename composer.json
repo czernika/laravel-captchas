@@ -1,0 +1,69 @@
+{
+    "name": "czernika/laravel-captchas",
+    "description": "Adds captchas to your Laravel web app",
+    "license": "MIT",
+    "version": "0.1.0",
+    "keywords": [
+        "laravel",
+        "captcha"
+    ],
+    "authors": [
+        {
+            "name": "Aliakseyenka Ihar",
+            "email": "aliha.devs@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.42",
+        "laravel/pint": "^1.14",
+        "orchestra/testbench": "^9.0",
+        "pestphp/pest": "^2.34",
+        "phpstan/phpstan": "^1.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Czernika\\Captchas\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Czernika\\Captchas\\CaptchaServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "lint": [
+            "@php vendor/bin/pint",
+            "@php vendor/bin/phpstan analyse"
+        ],
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve"
+        ],
+        "test": "@php vendor/bin/pest"
+    }
+}

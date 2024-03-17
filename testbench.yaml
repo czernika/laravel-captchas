@@ -1,0 +1,17 @@
+providers:
+  # - Workbench\App\Providers\WorkbenchServiceProvider
+  - Czernika\Captchas\CaptchaServiceProvider
+
+workbench:
+  start: '/workbench'
+  install: true
+  health: false
+  discovers:
+    web: true
+    api: false
+    commands: false
+    components: false
+    views: true
+  build: []
+  assets: []
+  sync: []

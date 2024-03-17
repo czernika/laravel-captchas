@@ -1,0 +1,62 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/**/*.php'
+      - 'tests/**/*.php'
+      - '.github/workflows/tests.yml'
+      - 'composer.json'
+      - 'composer.lock'
+  pull_request:
+
+jobs:
+  php-tests:
+    runs-on: ubuntu-22.04
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [8.1, 8.2, 8.3]
+        laravel: [10.*,11.*]
+        include:
+          - laravel: 10.*
+            testbench: 8.*
+          - laravel: 11.*
+            testbench: 9.*
+        exclude:
+          - laravel: 11.*
+            php: 8.1
+
+    name: PHP ${{ matrix.php }} | Laravel - ${{ matrix.laravel }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare PHP test environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer update --prefer-dist --no-interaction
+
+      - name: Running tests
+        run: composer test
