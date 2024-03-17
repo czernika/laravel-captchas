@@ -99,7 +99,7 @@ class YandexSmartCaptcha extends AbstractCaptcha
         }
 
         // User may want to check host request came from manually
-        $callback = CaptchaManager::getCheckHostsCallback();
+        $callback = CaptchaManager::getCheckHostCallback();
         if ($callback !== null && isset($data->host)) {
             $callback($data->host);
         }

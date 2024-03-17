@@ -80,7 +80,7 @@ describe('failure', function () {
     })->throws(InvalidCaptchaResponseException::class, 'Request failed because I told to.');
 
     it('fails with custom handler even if response is OK', function () {
-        CaptchaManager::checkHostsUsing(function (string $host) {
+        CaptchaManager::checkHostUsing(function (string $host) {
             throw_if($host === '127.0.0.1', InvalidCaptchaResponseException::class, 'Request failed because I told to.');
         });
 
@@ -93,6 +93,6 @@ describe('failure', function () {
 
         $this->captcha->verifyResponse('TOKEN');
 
-        CaptchaManager::disableCheckHosts();
+        CaptchaManager::disableCheckHost();
     })->throws(InvalidCaptchaResponseException::class, 'Request failed because I told to.');
 });

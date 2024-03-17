@@ -9,33 +9,33 @@ use Closure;
 class CaptchaManager
 {
     /**
-     * Callback function to check hosts with
+     * Callback function to check host with
      *
      * @var Closure|null
      */
-    protected static $checkHosts = null;
+    protected static $checkHost = null;
 
     /**
-     * Set hosts check callback
+     * Set host check callback
      */
-    public static function checkHostsUsing(Closure $closure): void
+    public static function checkHostUsing(Closure $closure): void
     {
-        static::$checkHosts = $closure;
+        static::$checkHost = $closure;
     }
 
     /**
-     * Get check hosts callback
+     * Get check host callback
      */
-    public static function getCheckHostsCallback(): ?Closure
+    public static function getCheckHostCallback(): ?Closure
     {
-        return static::$checkHosts;
+        return static::$checkHost;
     }
 
     /**
-     * Disable hosts checking
+     * Disable host checking
      */
-    public static function disableCheckHosts(): void
+    public static function disableCheckHost(): void
     {
-        static::$checkHosts = null;
+        static::$checkHost = null;
     }
 }
