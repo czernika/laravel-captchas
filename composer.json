@@ -69,5 +69,8 @@
             "@php vendor/bin/testbench serve"
         ],
         "test": "@php vendor/bin/pest"
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.8"
     }
 }
