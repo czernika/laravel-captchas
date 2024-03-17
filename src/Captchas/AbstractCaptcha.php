@@ -52,7 +52,7 @@ abstract class AbstractCaptcha implements Captcha
     }
 
     /**
-     * Build HTML attributes
+     * Build HTML attributes as a string
      */
     protected function buildAttributes(): string
     {
@@ -80,7 +80,8 @@ abstract class AbstractCaptcha implements Captcha
     {
         return collect($this->attributes)
             ->put($this->siteKeyAttributeName, $this->clientKey)
-            ->filter();
+            ->filter()
+            ->unique();
     }
 
     /**
@@ -89,8 +90,28 @@ abstract class AbstractCaptcha implements Captcha
     protected function renderHTML(Provider $provider): string
     {
         return Blade::renderComponent(
-            (new CaptchaComponent($provider))->withAttributes($this->getComponentOptions())
+            (new CaptchaComponent($provider))->withAttributes($this->getComponentAttributes())
         );
+    }
+
+    /**
+     * Get component options in a key-value pairs
+     * where key - HTML-attribute name, and value - its value
+     * if value is `null` it will not be rendered
+     */
+    protected function getComponentAttributes(): array
+    {
+        return $this->withAttributes(
+            $this->captchaAttributes()
+        )->getAttributes()->toArray();
+    }
+
+    /**
+     * Get attributes specific for captcha
+     */
+    protected function captchaAttributes(): array
+    {
+        return [];
     }
 
     /**

@@ -29,12 +29,12 @@ class YandexSmartCaptcha extends AbstractCaptcha
     /**
      * {@inheritDoc}
      */
-    public function getComponentOptions(): array
+    protected function captchaAttributes(): array
     {
-        return $this->withAttributes([
+        return [
             'data-hl' => $this->resolveCaptchaLocale(),
             'data-callback' => config('captchas.options.'.Provider::YANDEX->value.'.callback'),
-        ])->getAttributes()->toArray();
+        ];
     }
 
     /**
