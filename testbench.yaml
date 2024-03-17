@@ -12,6 +12,7 @@ workbench:
     commands: false
     components: false
     views: true
+    config: false
   build: []
   assets: []
   sync: []

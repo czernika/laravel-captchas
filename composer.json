@@ -44,7 +44,10 @@
         "laravel": {
             "providers": [
                 "Czernika\\Captchas\\CaptchaServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Captcha": "Czernika\\Captchas\\Facades\\Captcha"
+            }
         }
     },
     "scripts": {
