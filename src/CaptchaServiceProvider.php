@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Czernika\Captchas;
 
-use Czernika\Captchas\Captchas\YandexSmartCaptcha;
 use Czernika\Captchas\Contracts\Captcha;
 use Czernika\Captchas\Views\Components\CaptchaComponent;
 use Illuminate\Support\Facades\Blade;
@@ -15,7 +14,9 @@ class CaptchaServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(Captcha::class, function () {
-            return new YandexSmartCaptcha(
+            $provider = CaptchaManager::useProvider(config('captchas.default', 'yandex'));
+
+            return new $provider(
                 config('captchas.keys.client', ''),
                 config('captchas.keys.secret', ''),
             );

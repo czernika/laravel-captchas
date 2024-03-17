@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Czernika\Captchas\Captchas;
 
 use Czernika\Captchas\CaptchaManager;
+use Czernika\Captchas\Enums\Provider;
 use Czernika\Captchas\Exceptions\InvalidCaptchaResponseException;
 
 class YandexSmartCaptcha extends AbstractCaptcha
@@ -22,11 +23,18 @@ class YandexSmartCaptcha extends AbstractCaptcha
      */
     public function html(): string
     {
-        return sprintf('<div %s></div>', $this->withAttributes([
-            'class' => 'smart-captcha',
+        return $this->renderHTML(Provider::YANDEX);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getComponentOptions(): array
+    {
+        return $this->withAttributes([
             'data-hl' => $this->resolveCaptchaLocale(),
-            'data-callback' => config('captchas.options.yandex.callback'),
-        ])->buildAttributes());
+            'data-callback' => config('captchas.options.'.Provider::YANDEX->value.'.callback'),
+        ])->getAttributes()->toArray();
     }
 
     /**
@@ -42,7 +50,7 @@ class YandexSmartCaptcha extends AbstractCaptcha
      */
     protected function resolveCaptchaLocale(): ?string
     {
-        return match ($locale = config('captchas.options.yandex.hl')) {
+        return match ($locale = config('captchas.options.'.Provider::YANDEX->value.'.hl')) {
             'navigator' => null,
             'locale' => app()->getLocale(),
             default => $locale,
@@ -73,7 +81,7 @@ class YandexSmartCaptcha extends AbstractCaptcha
         return array_filter([
             'secret' => $this->secret,
             'token' => $token,
-            'ip' => config('captchas.options.yandex.send_ip', false) ? request()->ip() : null,
+            'ip' => config('captchas.options.'.Provider::YANDEX->value.'.send_ip', false) ? request()->ip() : null,
         ]);
     }
 

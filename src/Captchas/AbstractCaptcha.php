@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace Czernika\Captchas\Captchas;
 
 use Czernika\Captchas\Contracts\Captcha;
+use Czernika\Captchas\Enums\Provider;
+use Czernika\Captchas\Views\Components\CaptchaComponent;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
@@ -52,9 +56,7 @@ abstract class AbstractCaptcha implements Captcha
      */
     protected function buildAttributes(): string
     {
-        return collect($this->getAttributes())
-            ->put($this->siteKeyAttributeName, $this->clientKey)
-            ->filter()
+        return $this->getAttributes()
             ->map(fn ($value, $attribute) => sprintf('%s="%s"', $attribute, $value))
             ->join(' ');
     }
@@ -74,9 +76,21 @@ abstract class AbstractCaptcha implements Captcha
     /**
      * Get raw list of attributes
      */
-    public function getAttributes(): array
+    public function getAttributes(): Collection
     {
-        return $this->attributes;
+        return collect($this->attributes)
+            ->put($this->siteKeyAttributeName, $this->clientKey)
+            ->filter();
+    }
+
+    /**
+     * Render component
+     */
+    protected function renderHTML(Provider $provider): string
+    {
+        return Blade::renderComponent(
+            (new CaptchaComponent($provider))->withAttributes($this->getComponentOptions())
+        );
     }
 
     /**

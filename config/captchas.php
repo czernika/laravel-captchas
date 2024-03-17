@@ -17,6 +17,20 @@ return [
         'secret' => env('CAPTCHA_SECRET'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Default captcha
+    |--------------------------------------------------------------------------
+    |
+    | Defined captcha will be used
+    |
+    | Options: "yandex"
+    |
+    | Default: "yandex"
+    */
+
+    'default' => env('CAPTCHA_PROVIDER', 'yandex'),
+
     'options' => [
 
         'yandex' => [
@@ -31,7 +45,7 @@ return [
             |
             | Yandex SmartCaptcha backups to English for unsupported values
             |
-            | Supports "navigator", "locale" or predefined list of locales:
+            | Options: "navigator", "locale" or predefined list of locales:
             | 'ru' | 'en' | 'be' | 'kk' | 'tt' | 'uk' | 'uz' | 'tr'
             |
             | @see https://cloud.yandex.ru/en/docs/smartcaptcha/concepts/widget-methods#common-method
@@ -62,6 +76,7 @@ return [
             |
             | Default: "null"
             */
+
             'callback' => null,
 
             /*

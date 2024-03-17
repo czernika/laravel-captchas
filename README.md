@@ -34,6 +34,30 @@ CAPTCHA_CLIENT_KEY=
 CAPTCHA_SECRET=
 ```
 
+Add script tag into head
+
+```html
+<head>
+    {!! Captcha::js() !!}
+</head>
+```
+
+and HTML where captcha is needed. You may inject ot using `html()` method (**recommended**)
+
+```html
+{!! Captcha::html() !!}
+```
+
+Or you may render it as a component. Be aware this way every config option will be ignored and you need to pass it manually again, e.g.
+
+```html
+<x-captcha
+    data-sitekey="{{ config('captchas.keys.client') }}"
+    data-callback="callback"
+    data-hl="{{ app()->getLocale() }}"
+/>
+```
+
 ## Configuration
 
 Publish configuration file
@@ -65,6 +89,19 @@ CaptchaManager::checkHostUsing(function (string $host) {
 });
 ```
 
+## Validation rule
+
+After adding HTML you may verify captcha response by using validation rule
+
+```php
+use Czernika\Captchas\Rules\CaptchaResponseRule;
+
+// Name of the key depends on Captcha type
+$request->validate([
+    'smart-token' => ['required', 'string', new CaptchaResponseRule()],
+]);
+```
+
 ## Testing
 
 ```sh
@@ -74,3 +111,8 @@ composer test
 ## License
 
 Open source under [MIT License](LICENSE)
+
+## TODO
+
+- [ ] - Resolve attribute name to validate in request
+- [ ] - Docs on Github Pages with examples

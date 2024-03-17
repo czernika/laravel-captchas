@@ -19,7 +19,8 @@
         <form action="/send-yandex" method="POST">
             @csrf
 
-            <x-captcha />
+            {!! Captcha::html() !!}
+            {{-- <x-captcha data-sitekey="{{ config('captchas.keys.client') }}" /> --}}
 
             <button type="submit">Submit</button>
         </form>

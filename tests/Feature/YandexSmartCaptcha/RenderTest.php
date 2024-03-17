@@ -1,5 +1,8 @@
 <?php
 
+use Czernika\Captchas\Captchas\YandexSmartCaptcha;
+use Czernika\Captchas\Contracts\Captcha;
+
 uses()->group('feature.yandex.render');
 
 beforeEach(function () {
@@ -7,12 +10,10 @@ beforeEach(function () {
     config()->set('captchas.keys.secret', 'SECRET');
 });
 
-describe('component', function () {
-    it('renders view component', function () {
-        $view = $this->blade('<x-captcha />');
+describe('providers', function () {
+    it('resolves default yandex provider', function () {
+        $captcha = app(Captcha::class);
 
-        $view
-            ->assertSee('data-sitekey="CLIENT"', false)
-            ->assertSee('class="smart-captcha"', false);
+        expect($captcha)->toBeInstanceOf(YandexSmartCaptcha::class);
     });
 });

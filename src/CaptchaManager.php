@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Czernika\Captchas;
 
 use Closure;
+use Czernika\Captchas\Captchas\YandexSmartCaptcha;
+use Czernika\Captchas\Enums\Provider;
 
 class CaptchaManager
 {
@@ -14,6 +16,29 @@ class CaptchaManager
      * @var Closure|null
      */
     protected static $checkHost = null;
+
+    /**
+     * List of available providers
+     */
+    protected static array $providers = [
+        Provider::YANDEX->value => YandexSmartCaptcha::class,
+    ];
+
+    /**
+     * Get available provider by key
+     */
+    public static function useProvider(string $key): string
+    {
+        return static::$providers[$key];
+    }
+
+    /**
+     * Add new provider
+     */
+    public static function mapWith(string $key, string $provider): void
+    {
+        static::$providers[$key] = $provider;
+    }
 
     /**
      * Set host check callback

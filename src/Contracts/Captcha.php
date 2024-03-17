@@ -22,6 +22,13 @@ interface Captcha
     public function html(): string;
 
     /**
+     * Get component options in a key-value pairs
+     * where key - HTML-attribute name, and value - its value
+     * if value is `null` it will not be rendered
+     */
+    public function getComponentOptions(): array;
+
+    /**
      * Get verify method
      */
     public function getVerifyMethod(): string;
