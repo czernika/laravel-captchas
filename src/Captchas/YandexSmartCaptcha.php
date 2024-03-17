@@ -7,7 +7,7 @@ namespace Czernika\Captchas\Captchas;
 class YandexSmartCaptcha extends AbstractCaptcha
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function js(): string
     {
@@ -15,20 +15,30 @@ class YandexSmartCaptcha extends AbstractCaptcha
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function html(): string
     {
-        return sprintf('<div class="smart-captcha" data-sitekey="%s"></div>', $this->clientKey);
+        return sprintf('<div %s></div>', $this->withAttributes([
+            'class' => 'smart-captcha',
+            'data-hl' => $this->resolveCaptchaLocale(),
+        ])->buildAttributes());
     }
 
     /**
      * Get client widget URL
-     *
-     * @return string
      */
     protected function clientUrl(): string
     {
         return 'https://smartcaptcha.yandexcloud.net/captcha.js';
+    }
+
+    protected function resolveCaptchaLocale()
+    {
+        return match ($locale = config('captchas.options.yandex.hl')) {
+            'navigator' => null,
+            'locale' => app()->getLocale(),
+            default => $locale,
+        };
     }
 }

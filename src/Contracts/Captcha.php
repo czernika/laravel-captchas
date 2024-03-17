@@ -8,15 +8,11 @@ interface Captcha
 {
     /**
      * Get client widget script
-     *
-     * @return string
      */
     public function js(): string;
 
     /**
      * Get widget HTML
-     *
-     * @return string
      */
     public function html(): string;
 }

@@ -12,7 +12,13 @@
     <div class="">
         <h2>Yandex SmartCaptcha</h2>
 
-        {!! Captcha::html() !!}
+        <form action="/send" method="POST">
+            @csrf
+
+            {!! Captcha::html() !!}
+
+            <button type="submit">Submit</button>
+        </form>
     </div>
 </body>
 </html>
