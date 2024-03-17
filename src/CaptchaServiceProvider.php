@@ -6,6 +6,8 @@ namespace Czernika\Captchas;
 
 use Czernika\Captchas\Captchas\YandexSmartCaptcha;
 use Czernika\Captchas\Contracts\Captcha;
+use Czernika\Captchas\Views\Components\CaptchaComponent;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class CaptchaServiceProvider extends ServiceProvider
@@ -22,7 +24,9 @@ class CaptchaServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->loadConfig();
+        $this
+            ->loadConfig()
+            ->loadViews();
     }
 
     /**
@@ -35,6 +39,18 @@ class CaptchaServiceProvider extends ServiceProvider
         $this->publishes([
             $configPath => config_path('captchas.php'),
         ]);
+
+        return $this;
+    }
+
+    /**
+     * Load views
+     */
+    protected function loadViews(): self
+    {
+        Blade::component('captcha', CaptchaComponent::class);
+
+        $this->loadViewsFrom(dirname(__DIR__).'/resources/views', 'captcha');
 
         return $this;
     }

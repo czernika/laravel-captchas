@@ -43,6 +43,29 @@ return [
 
             /*
             |--------------------------------------------------------------------------
+            | Callback function name
+            |--------------------------------------------------------------------------
+            |
+            | Name of the JavaScript function to handle callback event. Accepts token as parameter
+            |
+            | @example `callback` was passed as value:
+            |   <script>
+            |        function callback(token) {
+            |            console.log(callback);
+            |        }
+            |   </script>
+            |  {!! Captcha::js() !!}
+            |
+            | @see https://cloud.yandex.ru/en/docs/smartcaptcha/concepts/widget-methods
+            |
+            | @var string|null
+            |
+            | Default: "null"
+            */
+            'callback' => null,
+
+            /*
+            |--------------------------------------------------------------------------
             | Send user IP with request or not
             |--------------------------------------------------------------------------
             |
@@ -52,7 +75,7 @@ return [
             |
             | Default: "false"
             */
-    
+
             'send_ip' => false,
         ],
     ],

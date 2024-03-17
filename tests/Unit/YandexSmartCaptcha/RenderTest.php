@@ -11,10 +11,12 @@ describe('HTML', function () {
         expect($captcha->html())->toContain('data-sitekey="CLIENT"');
     });
 
-    it('does not renders locale by default', function () {
+    it('does not renders optional attributes by default', function () {
         $captcha = new YandexSmartCaptcha('CLIENT', 'SECRET');
 
-        expect($captcha->html())->not->toContain('data-hl');
+        expect($captcha->html())
+            ->not->toContain('data-hl')
+            ->not->toContain('data-callback');
     });
 
     it('renders app locale if config value for hl set to locale', function () {
@@ -32,6 +34,14 @@ describe('HTML', function () {
         $captcha = new YandexSmartCaptcha('CLIENT', 'SECRET');
 
         expect($captcha->html())->toContain('data-hl="by"');
+    });
+
+    it('renders callback function name if config value for callback was set', function () {
+        config()->set('captchas.options.yandex.callback', 'myCallback');
+
+        $captcha = new YandexSmartCaptcha('CLIENT', 'SECRET');
+
+        expect($captcha->html())->toContain('data-callback="myCallback"');
     });
 });
 

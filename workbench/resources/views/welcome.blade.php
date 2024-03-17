@@ -19,7 +19,7 @@
         <form action="/send-yandex" method="POST">
             @csrf
 
-            {!! Captcha::html() !!}
+            <x-captcha />
 
             <button type="submit">Submit</button>
         </form>

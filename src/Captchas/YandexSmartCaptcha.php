@@ -25,6 +25,7 @@ class YandexSmartCaptcha extends AbstractCaptcha
         return sprintf('<div %s></div>', $this->withAttributes([
             'class' => 'smart-captcha',
             'data-hl' => $this->resolveCaptchaLocale(),
+            'data-callback' => config('captchas.options.yandex.callback'),
         ])->buildAttributes());
     }
 
@@ -64,7 +65,9 @@ class YandexSmartCaptcha extends AbstractCaptcha
         return 'https://smartcaptcha.yandexcloud.net/validate';
     }
 
-    
+    /**
+     * {@inheritDoc}
+     */
     public function getVerifyOptions(string $token): array
     {
         return array_filter([
@@ -94,8 +97,8 @@ class YandexSmartCaptcha extends AbstractCaptcha
         if (isset($data->host) && $data->host === '') {
             throw new InvalidCaptchaResponseException('The cloud is blocked or an internal service failure occurred.');
         }
-        
-        // User may want to check hosts manually
+
+        // User may want to check host request came from manually
         $callback = CaptchaManager::getCheckHostsCallback();
         if ($callback !== null && isset($data->host)) {
             $callback($data->host);

@@ -13,6 +13,14 @@ Tested for Laravel versions 10 and 11
 | 0.x     | 8.1/8.2/8.3  | 10.x    |
 | 0.x     | 8.2/8.3      | 11.x    |
 
+## Support
+
+- [x] - [Yandex SmartCaptcha](https://cloud.yandex.ru/en/docs/smartcaptcha/quickstart)
+- [ ] - Extended Yandex SmartCaptcha widget
+- [ ] - Google reCaptcha v2
+- [ ] - Google reCaptcha v3
+- [ ] - hCaptcha
+
 ## Installation
 
 ...
@@ -32,7 +40,11 @@ Publish configuration file
 php artisan vendor:publish --provider="Czernika\\Captchas\\CaptchaServiceProvider"
 ```
 
-### Options
+Every configuration option has self-explanatory comments
+
+### Validate host manually
+
+...
 
 ## Testing
 

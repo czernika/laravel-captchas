@@ -3,3 +3,10 @@ parameters:
     paths:
         - src
         - tests
+    ignoreErrors:
+        -
+            messages:
+                - '#Undefined variable: \$this#'
+                - '#Access to an undefined property Pest\\Mixins\\Expectation<mixed>::\$not#'
+            paths:
+                - tests/*
