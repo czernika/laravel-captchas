@@ -6,7 +6,6 @@ namespace Czernika\Captchas;
 
 use Closure;
 use Czernika\Captchas\Captchas\YandexSmartCaptcha;
-use Czernika\Captchas\Enums\Provider;
 
 class CaptchaManager
 {
@@ -21,7 +20,7 @@ class CaptchaManager
      * List of available providers
      */
     protected static array $providers = [
-        Provider::YANDEX->value => YandexSmartCaptcha::class,
+        'yandex' => YandexSmartCaptcha::class,
     ];
 
     /**
