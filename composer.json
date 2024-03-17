@@ -19,7 +19,8 @@
         "laravel/pint": "^1.14",
         "orchestra/testbench": "^9.0",
         "pestphp/pest": "^2.34",
-        "phpstan/phpstan": "^1.10"
+        "phpstan/phpstan": "^1.10",
+        "mockery/mockery": "^1.6"
     },
     "autoload": {
         "psr-4": {

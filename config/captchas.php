@@ -40,6 +40,20 @@ return [
             */
 
             'hl' => 'navigator',
+
+            /*
+            |--------------------------------------------------------------------------
+            | Send user IP with request or not
+            |--------------------------------------------------------------------------
+            |
+            | Allow to send user IP to SmartCaptcha server with request to help to improve it
+            |
+            | @var boolean
+            |
+            | Default: "false"
+            */
+    
+            'send_ip' => false,
         ],
     ],
 ];

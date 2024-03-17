@@ -9,10 +9,14 @@
     {!! Captcha::js() !!}
 </head>
 <body>
+    @foreach ($errors->all() as $error)
+        <div class="">{{ $error }}</div>
+    @endforeach
+
     <div class="">
         <h2>Yandex SmartCaptcha</h2>
 
-        <form action="/send" method="POST">
+        <form action="/send-yandex" method="POST">
             @csrf
 
             {!! Captcha::html() !!}

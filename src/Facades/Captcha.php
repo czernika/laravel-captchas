@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static string js()
  * @method static string html()
+ * @method static \Illuminate\Http\Client\Response getVerifyResponse(string $token)
+ * @method static object verifyResponse(string $token)
  */
 class Captcha extends Facade
 {

@@ -1,6 +1,6 @@
 # Laravel Captchas
 
-**BADGES**
+[![Tests](https://github.com/czernika/laravel-captchas/actions/workflows/tests.yml/badge.svg)](https://github.com/czernika/laravel-captchas/actions/workflows/tests.yml)
 
 Adds captchas to your Laravel web app
 
@@ -17,9 +17,22 @@ Tested for Laravel versions 10 and 11
 
 ...
 
+Next you need to add client and server keys into `.env` file
+
+```
+CAPTCHA_CLIENT_KEY=
+CAPTCHA_SECRET=
+```
+
 ## Configuration
 
-...
+Publish configuration file
+
+```sh
+php artisan vendor:publish --provider="Czernika\\Captchas\\CaptchaServiceProvider"
+```
+
+### Options
 
 ## Testing
 

@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Czernika\Captchas\Captchas;
 
 use Czernika\Captchas\Contracts\Captcha;
+use Illuminate\Http\Client\Response;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 abstract class AbstractCaptcha implements Captcha
 {
@@ -20,9 +24,17 @@ abstract class AbstractCaptcha implements Captcha
 
     public function __construct(
         protected readonly string $clientKey,
-        protected readonly string $serverKey,
+        protected readonly string $secret,
     ) {
 
+    }
+
+    /**
+     * Get full URL
+     */
+    public function getVerifyUrlWithQueries(string $token): string
+    {
+        return $this->getVerifyUrl().'?'.Arr::query($this->getVerifyOptions($token));
     }
 
     /**
@@ -65,5 +77,17 @@ abstract class AbstractCaptcha implements Captcha
     public function getAttributes(): array
     {
         return $this->attributes;
+    }
+
+    /**
+     * Get client response object from verify request
+     */
+    public function getVerifyResponse(string $token): Response
+    {
+        $method = Str::lower($this->getVerifyMethod());
+
+        $response = Http::{$method}($this->getVerifyUrl(), $this->getVerifyOptions($token));
+
+        return $response;
     }
 }
