@@ -4,25 +4,23 @@ use Czernika\Captchas\Captchas\ExtendedYandexSmartCaptcha;
 
 uses()->group('unit.extended_yandex.request');
 
+beforeEach(function () {
+    $this->captcha = new ExtendedYandexSmartCaptcha('CLIENT', 'SECRET');
+});
+
 describe('options', function () {
     it('resolves correct method name', function () {
-        $captcha = new ExtendedYandexSmartCaptcha('CLIENT', 'SECRET');
-
-        expect($captcha->getVerifyMethod())->toBe('GET');
+        expect($this->captcha->getVerifyMethod())->toBe('GET');
     });
 
     it('resolves correct verify URL', function () {
-        $captcha = new ExtendedYandexSmartCaptcha('CLIENT', 'SECRET');
-
-        expect($captcha->getVerifyUrl())
+        expect($this->captcha->getVerifyUrl())
             ->toBeUrl()
             ->toBe('https://smartcaptcha.yandexcloud.net/validate');
     });
 
     it('resolves correct options', function () {
-        $captcha = new ExtendedYandexSmartCaptcha('CLIENT', 'SECRET');
-
-        expect($captcha->getVerifyOptions('TOKEN'))->toMatchArray([
+        expect($this->captcha->getVerifyOptions('TOKEN'))->toMatchArray([
             'token' => 'TOKEN',
             'secret' => 'SECRET',
         ]);
