@@ -16,7 +16,7 @@ Tested for Laravel versions 10 and 11
 ## Roadmap
 
 - [x] - [Yandex SmartCaptcha](https://cloud.yandex.ru/en/docs/smartcaptcha/quickstart)
-- [ ] - Extended Yandex SmartCaptcha widget (For now can be used with [Vue3 SmartCaptcha component](https://github.com/czernika/vue3-smart-captcha))
+- [x] - [Extended Yandex SmartCaptcha widget](https://cloud.yandex.ru/en/docs/smartcaptcha/concepts/widget-methods#extended-method) (You can use [Vue3 SmartCaptcha component](https://github.com/czernika/vue3-smart-captcha) as a frontend HTML)
 - [ ] - Google reCaptcha v2
 - [ ] - Google reCaptcha v3
 - [ ] - hCaptcha
@@ -102,6 +102,11 @@ $request->validate([
 ]);
 ```
 
+| Captcha         | Request key name to validate |
+|-----------------|------------------------------|
+| yandex          | smart-token                  |
+| extended_yandex | smart-token                  |
+
 ## Testing
 
 ```sh
@@ -116,3 +121,7 @@ Open source under [MIT License](LICENSE)
 
 - [ ] - Resolve attribute name to validate in request
 - [ ] - Docs on Github Pages with examples
+
+### Extended Yandex SmartCaptcha
+
+- [ ] - Pass JS callback function

@@ -11,6 +11,7 @@ class CaptchaComponent extends Component
 {
     public function __construct(
         public Provider $provider,
+        public array $options = [],
     ) {
 
     }

@@ -93,5 +93,57 @@ return [
 
             'send_ip' => false,
         ],
+
+        'extended_yandex' => [
+            'hl' => 'navigator',
+
+            'send_ip' => false,
+
+            /*
+            |--------------------------------------------------------------------------
+            | Widget options
+            |--------------------------------------------------------------------------
+            |
+            | List of supported options for Yandex SmartCaptcha widget
+            |
+            | @see https://cloud.yandex.ru/en/docs/smartcaptcha/concepts/widget-methods#extended-method
+            */
+
+            'widget' => [
+                'test' => false,
+
+                'webview' => false,
+
+                'invisible' => false,
+
+                'shieldPosition' => 'top-left',
+
+                'hideShield' => false,
+            ],
+
+            /*
+            |--------------------------------------------------------------------------
+            | Extra view template
+            |--------------------------------------------------------------------------
+            |
+            | When option is set to any string value but empty ('') it will be considered as
+            | blade template to include in extra scripts. In this template you have access
+            | to `smartCaptchaWidgetId` JS variable which is basically widget itself
+            |
+            | @example content of template as it is
+            | const unsubscribe = window.smartCaptcha.subscribe(
+            |       smartCaptchaWidgetId,
+            |       'challenge-visible',
+            |       () => console.log('challenge is visible')
+            |);
+            |
+            | @see https://cloud.yandex.ru/en/docs/smartcaptcha/concepts/widget-methods
+            |
+            | @var string
+            |
+            | Default: "''"
+            */
+            'subscription_view' => '',
+        ],
     ],
 ];

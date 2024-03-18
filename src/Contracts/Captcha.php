@@ -7,11 +7,6 @@ namespace Czernika\Captchas\Contracts;
 interface Captcha
 {
     /**
-     * Get JS client URL
-     */
-    public function clientUrl(): string;
-
-    /**
      * Get client widget script
      */
     public function js(): string;

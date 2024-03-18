@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Czernika\Captchas;
 
 use Closure;
+use Czernika\Captchas\Captchas\ExtendedYandexSmartCaptcha;
 use Czernika\Captchas\Captchas\YandexSmartCaptcha;
 
 class CaptchaManager
@@ -21,6 +22,7 @@ class CaptchaManager
      */
     protected static array $providers = [
         'yandex' => YandexSmartCaptcha::class,
+        'extended_yandex' => ExtendedYandexSmartCaptcha::class,
     ];
 
     /**

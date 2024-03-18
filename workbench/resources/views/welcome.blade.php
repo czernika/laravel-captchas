@@ -13,14 +13,25 @@
         <div class="">{{ $error }}</div>
     @endforeach
 
-    <div class="">
+    {{-- <div class="">
         <h2>Yandex SmartCaptcha</h2>
 
         <form action="/send-yandex" method="POST">
             @csrf
 
             {!! Captcha::html() !!}
-            {{-- <x-captcha data-sitekey="{{ config('captchas.keys.client') }}" /> --}}
+
+            <button type="submit">Submit</button>
+        </form>
+    </div> --}}
+
+    <div class="">
+        <h2>Extended Yandex SmartCaptcha</h2>
+
+        <form action="/send-yandex" method="POST">
+            @csrf
+
+            {!! Captcha::html() !!}
 
             <button type="submit">Submit</button>
         </form>

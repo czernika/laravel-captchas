@@ -1,9 +1,10 @@
 <?php
 
+use Czernika\Captchas\Captchas\ExtendedYandexSmartCaptcha;
 use Czernika\Captchas\Captchas\YandexSmartCaptcha;
 use Czernika\Captchas\Contracts\Captcha;
 
-uses()->group('feature.yandex.render');
+uses()->group('feature.render');
 
 beforeEach(function () {
     config()->set('captchas.keys.client', 'CLIENT');
@@ -15,5 +16,13 @@ describe('providers', function () {
         $captcha = app(Captcha::class);
 
         expect($captcha)->toBeInstanceOf(YandexSmartCaptcha::class);
+    });
+
+    it('resolves custom provider', function () {
+        config()->set('captchas.default', 'extended_yandex');
+
+        $captcha = app(Captcha::class);
+
+        expect($captcha)->toBeInstanceOf(ExtendedYandexSmartCaptcha::class);
     });
 });

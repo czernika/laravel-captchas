@@ -41,6 +41,8 @@ class CaptchaServiceProvider extends ServiceProvider
             $configPath => config_path('captchas.php'),
         ]);
 
+        $this->mergeConfigFrom($configPath, 'captchas');
+
         return $this;
     }
 

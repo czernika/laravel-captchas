@@ -87,10 +87,10 @@ abstract class AbstractCaptcha implements Captcha
     /**
      * Render component
      */
-    protected function renderHTML(Provider $provider): string
+    protected function renderHTML(Provider $provider, array $options = []): string
     {
         return Blade::renderComponent(
-            (new CaptchaComponent($provider))->withAttributes($this->getComponentAttributes())
+            (new CaptchaComponent($provider, $options))->withAttributes($this->getComponentAttributes())
         );
     }
 

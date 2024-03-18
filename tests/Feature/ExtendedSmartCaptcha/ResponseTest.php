@@ -1,15 +1,15 @@
 <?php
 
 use Czernika\Captchas\CaptchaManager;
-use Czernika\Captchas\Captchas\YandexSmartCaptcha;
+use Czernika\Captchas\Captchas\ExtendedYandexSmartCaptcha;
 use Czernika\Captchas\Exceptions\InvalidCaptchaResponseException;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 
-uses()->group('feature.yandex.response');
+uses()->group('feature.extended_yandex.response');
 
 beforeEach(function () {
-    $this->captcha = new YandexSmartCaptcha('CLIENT', 'SECRET');
+    $this->captcha = new ExtendedYandexSmartCaptcha('CLIENT', 'SECRET');
 });
 
 afterEach(function () {
@@ -32,7 +32,7 @@ describe('request', function () {
     });
 
     it('it sends request with ip when config option set to true', function () {
-        config()->set('captchas.options.yandex.send_ip', true);
+        config()->set('captchas.options.extended_yandex.send_ip', true);
 
         Http::fake();
 
