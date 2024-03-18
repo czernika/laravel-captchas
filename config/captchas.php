@@ -95,6 +95,9 @@ return [
         ],
 
         'extended_yandex' => [
+            /**
+             * Same values as for `yandex`
+             */
             'hl' => 'navigator',
 
             'send_ip' => false,
@@ -116,7 +119,7 @@ return [
 
                 'invisible' => false,
 
-                'shieldPosition' => 'top-left',
+                'shieldPosition' => 'bottom-right',
 
                 'hideShield' => false,
             ],
@@ -143,6 +146,7 @@ return [
             |
             | Default: "''"
             */
+
             'subscription_view' => '',
         ],
     ],
