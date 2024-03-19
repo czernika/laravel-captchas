@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Czernika\Captchas\Captchas;
 
-use Czernika\Captchas\CaptchaManager;
 use Czernika\Captchas\Enums\Provider;
+use Czernika\Captchas\Events\SendingVerifyRequest;
+use Czernika\Captchas\Events\VerifyRequestSent;
 use Czernika\Captchas\Exceptions\InvalidCaptchaResponseException;
 
 class YandexSmartCaptcha extends AbstractCaptcha
@@ -90,6 +91,8 @@ class YandexSmartCaptcha extends AbstractCaptcha
      */
     public function verifyResponse(string $token): mixed
     {
+        SendingVerifyRequest::dispatch($token);
+
         $response = $this->getVerifyResponse($token);
 
         $data = $response->object();
@@ -106,11 +109,7 @@ class YandexSmartCaptcha extends AbstractCaptcha
             throw new InvalidCaptchaResponseException('The cloud is blocked or an internal service failure occurred.');
         }
 
-        // User may want to check host request came from manually
-        $callback = CaptchaManager::getCheckHostCallback();
-        if ($callback !== null && isset($data->host)) {
-            $callback($data->host);
-        }
+        VerifyRequestSent::dispatch($token, $data);
 
         return $data;
     }

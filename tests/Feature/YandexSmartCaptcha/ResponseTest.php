@@ -1,19 +1,16 @@
 <?php
 
-use Czernika\Captchas\CaptchaManager;
 use Czernika\Captchas\Captchas\YandexSmartCaptcha;
 use Czernika\Captchas\Exceptions\InvalidCaptchaResponseException;
 use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Http;
 
 uses()->group('feature.yandex.response');
 
 beforeEach(function () {
+    Event::fake();
     $this->captcha = new YandexSmartCaptcha('CLIENT', 'SECRET');
-});
-
-afterEach(function () {
-    CaptchaManager::disableCheckHost();
 });
 
 describe('request', function () {
@@ -77,21 +74,6 @@ describe('failure', function () {
                 'status' => 'failed',
                 'host' => '127.0.0.1',
                 'message' => 'Request failed because I told to.',
-            ]),
-        ]);
-
-        $this->captcha->verifyResponse('TOKEN');
-    })->throws(InvalidCaptchaResponseException::class, 'Request failed because I told to.');
-
-    it('fails with custom handler even if response is OK', function () {
-        CaptchaManager::checkHostUsing(function (string $host) {
-            throw_if($host === '127.0.0.1', InvalidCaptchaResponseException::class, 'Request failed because I told to.');
-        });
-
-        Http::fake([
-            'https://smartcaptcha.yandexcloud.net/*' => Http::response([
-                'status' => 'ok',
-                'host' => '127.0.0.1',
             ]),
         ]);
 

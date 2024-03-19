@@ -68,25 +68,20 @@ php artisan vendor:publish --provider="Czernika\\Captchas\\CaptchaServiceProvide
 
 Every configuration option has self-explanatory comments
 
-### Validate host manually
+## Events
 
-You may check host from where request sent manually
-
-*NOTE: tested only with Yandex SmartCaptcha*
-
-To do so register custom handler in ServiceProvider
+Before and after validation request were sent there are two events
 
 ```php
-use Czernika\Captchas\CaptchaManager;
+// accepts $token value
+\Czernika\Captchas\Events\SendingVerifyRequest => [
+    //
+],
 
-CaptchaManager::checkHostUsing(function (string $host) {
-    // Check $host against
-    // Need to throw \Czernika\Captchas\InvalidCaptchaResponseException
-
-    if ($host !== 'my-host.com') {
-        throw new \Czernika\Captchas\InvalidCaptchaResponseException('Host is not valid');
-    }
-});
+// accepts $token value and response data
+\Czernika\Captchas\Events\VerifyRequestSent => [
+    // 
+],
 ```
 
 ## Validation rule

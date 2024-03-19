@@ -2,7 +2,7 @@
     "name": "czernika/laravel-captchas",
     "description": "Adds captchas to your Laravel web app",
     "license": "MIT",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "keywords": [
         "laravel",
         "captcha"
